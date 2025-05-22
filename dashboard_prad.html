@@ -1,137 +1,111 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-BR" class="dark"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard PRAD</title>
+    <title>Dashboard PRAD - Tema Escuro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos para classes base dos cartões - Removidos pois serão aplicados in-line */
-        /* .card-base { @apply p-4 rounded-lg shadow-lg border-2 break-words; } */
-        /* .card-title { @apply font-bold text-lg mb-2; } */
-        /* .card-content { @apply text-sm; } */
-
-        /* Conectores de seta permanecem, pois não usam @apply */
-        .arrow-connector {
-            @apply text-center my-3; /* Tailwind vai processar isso se estiver em um CSS que ele lê, mas aqui não fará nada. Melhor aplicar in-line ou manter simples. */
-                                     /* Vamos simplificar e aplicar in-line se necessário, ou manter como está se for suficiente. */
-        }
-        .arrow-svg {
-            @apply w-8 h-8 text-gray-500 mx-auto; /* Idem acima. Será melhor aplicar diretamente no SVG no HTML. */
-        }
-
-        /*
-          As classes de cores como .fasePrincipal, .decisao, etc.
-          serão aplicadas diretamente no HTML.
-          Ex: <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 border-sky-400 text-sky-700 w-full md:w-3/4 lg:w-2/3">
-        */
-
-        /* Estilos para sub-itens podem ser mantidos se não usarem @apply,
-           ou suas propriedades podem ser movidas para classes Tailwind in-line.
-           Para maior clareza e consistência com o Tailwind CDN, vamos optar por classes in-line.
-        */
-        /* .sub-item { @apply mt-2 p-2 rounded; } */
-        /* .anpp-item .sub-item { @apply bg-purple-100 border border-purple-300; } */
-        /* .cenarioA .sub-item { @apply bg-green-100 border border-green-300; } */
-        /* .cenarioB .sub-item { @apply bg-yellow-100 border border-yellow-300; } */
+        /* Nenhum estilo customizado é estritamente necessário aqui,
+           pois estamos usando classes Tailwind diretamente no HTML.
+           Mantido vazio para caso você queira adicionar algo específico depois. */
     </style>
 </head>
-<body class="bg-gray-100 p-4 sm:p-6 md:p-8">
+<body class="bg-gray-100 dark:bg-gray-900 p-4 sm:p-6 md:p-8">
     <div class="container mx-auto max-w-5xl">
         <header class="mb-8 text-center">
-            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Painel de Acompanhamento do PRAD</h1>
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100">Painel de Acompanhamento do PRAD</h1>
         </header>
 
         <div class="space-y-3 flex flex-col items-center">
 
-            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 border-sky-400 text-sky-700 w-full md:w-3/4 lg:w-2/3">
+            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 dark:bg-gray-800 border-sky-400 dark:border-sky-600 text-sky-700 dark:text-sky-300 w-full md:w-3/4 lg:w-2/3">
                 <div class="font-bold text-lg mb-2">A: Início</div>
                 <p class="text-sm">Aprovação do PRAD pelo ICMBio.</p>
             </div>
 
             <div class="text-center my-3">
-                <svg class="w-8 h-8 text-gray-500 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </div>
 
-            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 border-sky-400 text-sky-700 w-full md:w-3/4 lg:w-2/3">
+            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 dark:bg-gray-800 border-sky-400 dark:border-sky-600 text-sky-700 dark:text-sky-300 w-full md:w-3/4 lg:w-2/3">
                 <div class="font-bold text-lg mb-2">B: Fase 1: Ações Imediatas e Contínuas</div>
-                <p class="text-sm text-xs mb-2">(Até ~Mês 18-24)</p>
-                <div class="space-y-2 mt-2">
-                    <div class="mt-2 p-2 rounded bg-purple-100 border border-purple-300 text-purple-700"> <span class="font-semibold">B1:</span> Preparo das Áreas Não Edificadas (ANE)
+                <p class="text-xs mb-2">(Até ~Mês 18-24)</p> <div class="space-y-2 mt-2">
+                    <div class="mt-2 p-2 rounded bg-purple-100 dark:bg-purple-800 border border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-200">
+                        <span class="font-semibold">B1:</span> Preparo das Áreas Não Edificadas (ANE)
                     </div>
-                    <div class="mt-2 p-2 rounded bg-purple-100 border border-purple-300 text-purple-700">
+                    <div class="mt-2 p-2 rounded bg-purple-100 dark:bg-purple-800 border border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-200">
                         <span class="font-semibold">B2:</span> Plantio/Restauração Ecológica nas ANE
                     </div>
-                    <div class="mt-2 p-2 rounded bg-purple-100 border border-purple-300 text-purple-700">
+                    <div class="mt-2 p-2 rounded bg-purple-100 dark:bg-purple-800 border border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-200">
                         <span class="font-semibold">B3:</span> Manutenção Intensiva das ANE (Controle de Invasoras, Replantio)
                     </div>
-                    <div class="mt-2 p-2 rounded bg-sky-100 border border-sky-300"> <span class="font-semibold">B4:</span> Monitoramento Contínuo da Restauração das ANE
+                    <div class="mt-2 p-2 rounded bg-sky-100 dark:bg-sky-800 border border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-200">
+                        <span class="font-semibold">B4:</span> Monitoramento Contínuo da Restauração das ANE
                     </div>
                 </div>
             </div>
 
             <div class="text-center my-3">
-                <svg class="w-8 h-8 text-gray-500 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </div>
             
-            <div class="w-full md:w-3/4 lg:w-2/3 my-3 p-3 border-2 rounded-lg bg-purple-50 border-purple-400 text-purple-700">
+            <div class="w-full md:w-3/4 lg:w-2/3 my-3 p-3 border-2 rounded-lg bg-purple-50 dark:bg-gray-800 border-purple-400 dark:border-purple-600 text-purple-700 dark:text-purple-300">
                 <h3 class="font-bold text-lg mb-1">ANPP - Prazo de Execução (2 anos)</h3>
                 <p class="text-sm italic">As atividades B1, B2, B3 (acima) e C, D (abaixo) fazem parte das metas iniciais do ANPP. Foco no cumprimento destas metas.</p>
             </div>
 
-            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-purple-50 border-purple-400 text-purple-700 w-full md:w-3/4 lg:w-2/3">
+            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-purple-50 dark:bg-gray-800 border-purple-400 dark:border-purple-600 text-purple-700 dark:text-purple-300 w-full md:w-3/4 lg:w-2/3">
                 <div class="font-bold text-lg mb-2">C: Elaboração do Estudo Técnico (ETAIC)</div>
                 <p class="text-sm">Paralelo à Fase 1: Elaboração do Estudo Técnico de Alternativas para Infraestrutura Controversa (ETAIC) para Área Edificada (AE).</p>
             </div>
 
             <div class="text-center my-3">
-                <svg class="w-8 h-8 text-gray-500 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </div>
 
-            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-purple-50 border-purple-400 text-purple-700 w-full md:w-3/4 lg:w-2/3">
+            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-purple-50 dark:bg-gray-800 border-purple-400 dark:border-purple-600 text-purple-700 dark:text-purple-300 w-full md:w-3/4 lg:w-2/3">
                 <div class="font-bold text-lg mb-2">D: Submissão do ETAIC ao ICMBio</div>
                 <p class="text-sm">Prazo: até Mês 18.</p>
             </div>
 
             <div class="text-center my-3">
-                <svg class="w-8 h-8 text-gray-500 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </div>
 
-            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-red-50 border-red-400 text-red-700 w-full md:w-3/4 lg:w-2/3">
+            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-red-50 dark:bg-gray-800 border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 w-full md:w-3/4 lg:w-2/3">
                 <div class="font-bold text-lg mb-2">E: Análise do ETAIC e Decisão do ICMBio</div>
                 <p class="text-sm">ICMBio analisa o ETAIC e decide sobre a edificação.</p>
             </div>
 
             <div class="w-full md:w-3/4 lg:w-2/3 my-3">
                 <div class="flex justify-around">
-                    <svg class="w-8 h-8 text-gray-500 transform -rotate-45" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                    <svg class="w-8 h-8 text-gray-500 transform rotate-45" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 transform -rotate-45" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 transform rotate-45" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 </div>
             </div>
 
-            <div class="w-full grid md:grid-cols-2 gap-6 items-start md:max-w-[calc(2/3*100%)]"> <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-green-50 border-green-400 text-green-700">
+            <div class="w-full grid md:grid-cols-2 gap-6 items-start md:max-w-[calc(2/3*100%)]">
+                <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-green-50 dark:bg-gray-800 border-green-400 dark:border-green-600 text-green-700 dark:text-green-300">
                     <div class="font-bold text-lg mb-2">F: Cenário A: Manutenção da Edificação</div>
-                    <p class="text-sm text-xs mb-2">
-                        ETAIC Conclui: Demolição NÃO é a melhor alternativa OU ICMBio acata manutenção c/ condições.
+                    <p class="text-xs mb-2"> ETAIC Conclui: Demolição NÃO é a melhor alternativa OU ICMBio acata manutenção c/ condições.
                     </p>
-                    <div class="mt-2 p-2 rounded bg-green-100 border border-green-300">
+                    <div class="mt-2 p-2 rounded bg-green-100 dark:bg-green-800 border border-green-300 dark:border-green-600">
                         <span class="font-semibold">F1:</span> Implementação de Medidas Mitigatórias/Compensatórias para AE (se definidas no ETAIC/ICMBio).
                     </div>
                 </div>
 
-                <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-yellow-50 border-yellow-400 text-yellow-700">
+                <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-yellow-50 dark:bg-gray-800 border-yellow-400 dark:border-yellow-600 text-yellow-700 dark:text-yellow-300">
                     <div class="font-bold text-lg mb-2">H: Cenário B: Demolição da Edificação</div>
-                    <p class="text-sm text-xs mb-2">
-                        ETAIC Conclui: Demolição é medida indispensável/proporcional E ICMBio DETERMINA Demolição.
+                    <p class="text-xs mb-2"> ETAIC Conclui: Demolição é medida indispensável/proporcional E ICMBio DETERMINA Demolição.
                     </p>
                     <div class="space-y-2 mt-2">
-                        <div class="mt-2 p-2 rounded bg-yellow-100 border border-yellow-300">
+                        <div class="mt-2 p-2 rounded bg-yellow-100 dark:bg-yellow-800 border border-yellow-300 dark:border-yellow-600">
                             <span class="font-semibold">H1:</span> Elaboração do Plano Detalhado de Demolição e Gestão de Resíduos.
                         </div>
-                        <div class="mt-2 p-2 rounded bg-yellow-100 border border-yellow-300">
+                        <div class="mt-2 p-2 rounded bg-yellow-100 dark:bg-yellow-800 border border-yellow-300 dark:border-yellow-600">
                             <span class="font-semibold">H2:</span> Execução da Demolição e Remoção/Destinação de Resíduos.
                         </div>
-                        <div class="mt-2 p-2 rounded bg-yellow-100 border border-yellow-300">
+                        <div class="mt-2 p-2 rounded bg-yellow-100 dark:bg-yellow-800 border border-yellow-300 dark:border-yellow-600">
                             <span class="font-semibold">H3:</span> Restauração Ecológica da Área da Ex-Edificação.
                         </div>
                     </div>
@@ -140,31 +114,30 @@
 
             <div class="w-full md:w-3/4 lg:w-2/3 my-3">
                 <div class="flex justify-center items-center">
-                    <div class="w-1/3 h-px bg-gray-400 hidden md:block"></div>
-                     <svg class="w-8 h-8 text-gray-500 mx-2 hidden md:block" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                    <svg class="w-8 h-8 text-gray-500 mx-auto my-3 md:hidden" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                    <div class="w-1/3 h-px bg-gray-400 hidden md:block"></div>
+                    <div class="w-1/3 h-px bg-gray-400 dark:bg-gray-600 hidden md:block"></div>
+                    <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mx-2 hidden md:block" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto my-3 md:hidden" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    <div class="w-1/3 h-px bg-gray-400 dark:bg-gray-600 hidden md:block"></div>
                 </div>
-                <p class="text-center text-xs text-gray-500 italic">(Ambos os cenários convergem para o Monitoramento de Longo Prazo)</p>
+                <p class="text-center text-xs text-gray-500 dark:text-gray-400 italic">(Ambos os cenários convergem para o Monitoramento de Longo Prazo)</p>
             </div>
 
-            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 border-sky-400 text-sky-700 w-full md:w-3/4 lg:w-2/3">
+            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 dark:bg-gray-800 border-sky-400 dark:border-sky-600 text-sky-700 dark:text-sky-300 w-full md:w-3/4 lg:w-2/3">
                 <div class="font-bold text-lg mb-2">G: Monitoramento de Longo Prazo da ADA</div>
                 <p class="text-sm">Monitoramento da Área Degradada ou Alterada (ANE + AE com medidas, ou área da ex-edificação restaurada).</p>
             </div>
 
             <div class="text-center my-3">
-                <svg class="w-8 h-8 text-gray-500 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                <svg class="w-8 h-8 text-gray-500 dark:text-gray-400 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </div>
 
-            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 border-sky-400 text-sky-700 w-full md:w-3/4 lg:w-2/3">
+            <div class="p-4 rounded-lg shadow-lg border-2 break-words bg-sky-50 dark:bg-gray-800 border-sky-400 dark:border-sky-600 text-sky-700 dark:text-sky-300 w-full md:w-3/4 lg:w-2/3">
                 <div class="font-bold text-lg mb-2">Z: Conclusão do PRAD</div>
                 <p class="text-sm">Após atingir Critérios de Sucesso e Prazo Mínimo de Monitoramento (ex: 4 anos).</p>
             </div>
-
         </div>
 
-        <footer class="mt-12 text-center text-sm text-gray-600">
+        <footer class="mt-12 text-center text-sm text-gray-600 dark:text-gray-400">
             <p>&copy; 2024 Painel de Acompanhamento PRAD. Gerado com base no fluxograma fornecido.</p>
         </footer>
     </div>
