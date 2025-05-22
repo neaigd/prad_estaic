@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico: Mandado de Segurança Ambiental e Análise Técnica Prévia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-title {
+            font-size: 1.75rem; /* text-2xl */
+            font-weight: 700; /* bold */
+            margin-bottom: 1.5rem; /* mb-6 */
+            color: #073B4C; /* Energetic & Playful - Dark Blue */
+            text-align: center;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .text-highlight {
+            color: #FF6B6B; /* Energetic & Playful - Red */
+            font-weight: 600;
+        }
+        .flowchart-step {
+            background-color: #E0F2FE; /* light blue, similar to #118AB2 */
+            border: 2px solid #118AB2; /* Energetic & Playful - Blue */
+            color: #073B4C;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 0.75rem; /* mb-3 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+        .flowchart-arrow {
+            font-size: 2rem;
+            color: #118AB2; /* Energetic & Playful - Blue */
+            text-align: center;
+            margin-bottom: 0.5rem; /* mb-2 */
+            line-height: 1;
+        }
+         .pillar {
+            background-color: #E0F2FE; /* light blue */
+            border: 2px solid #118AB2; /* Energetic & Playful - Blue */
+            color: #073B4C; /* Dark Blue */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .pillar-base {
+            width: 120%;
+            margin-left: -10%;
+            height: 20px;
+            background-color: #073B4C; /* Dark Blue */
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            margin-top: -2px; /* to connect with pillar */
+        }
+        .key-point-item {
+            background-color: #FFFBEB; /* light yellow, similar to #FFD166 */
+            border-left: 5px solid #FFD166; /* Energetic & Playful - Yellow */
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 0.25rem;
+        }
+        .checklist-item {
+            background-color: #F0FFF4; /* light green, similar to #06D6A0 */
+            border-left: 5px solid #06D6A0; /* Energetic & Playful - Green */
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+        }
+        .checklist-icon {
+            color: #06D6A0;
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+        }
+        .stat-value {
+            font-size: 3rem; /* text-5xl */
+            font-weight: 700; /* bold */
+            color: #FF6B6B; /* Energetic & Playful - Red */
+        }
+        .stat-label {
+            font-size: 1.125rem; /* text-lg */
+            color: #073B4C; /* Energetic & Playful - Dark Blue */
+        }
+        .citation {
+            font-size: 0.75rem; /* text-xs */
+            color: #4A5568; /* gray-700 */
+            margin-top: 0.25rem; /* mt-1 */
+        }
+        
+    </style>
+</head>
+<body class="bg-sky-50 text-gray-800">
+    <header class="bg-073B4C text-white p-6 shadow-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">Desvendando o Mandado de Segurança Ambiental</h1>
+            <p class="text-lg md:text-xl mt-2">Análise Técnica Prévia (ETAIC) como Direito Fundamental Antes da Demolição</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="desafio" class="mb-12">
+            <h2 class="section-title">1. O Desafio Jurídico: Demolição vs. Análise Técnica</h2>
+            <div class="card text-center">
+                <p class="stat-value">!</p>
+                <p class="stat-label">Direito à Análise Técnica Prévia Ameaçado?</p>
+                <p class="mt-4 text-lg text-gray-700 leading-relaxed">
+                    Órgãos ambientais por vezes condicionam a aprovação de Projetos de Recuperação de Área Degradada (PRAD) à inclusão imediata da demolição de edificações, <span class="text-highlight">recusando-se a analisar um Estudo Técnico de Avaliação de Impactos Comparativos (ETAIC)</span> proposto pelo administrado. Este estudo, potencialmente amparado pelo Art. 19, §3º do Decreto nº 6.514/2008, visa ponderar alternativas e os reais benefícios da demolição frente a outras medidas recuperatórias.
+                </p>
+                <p class="mt-2 text-md text-gray-600">
+                    A negativa em considerar tal estudo prévio levanta sérias questões sobre o devido processo legal, o direito à prova e os limites da discricionariedade administrativa na aplicação de sanções ambientais.
+                </p>
+            </div>
+        </section>
+
+        <section id="fundamentos" class="mb-12">
+            <h2 class="section-title">2. Fundamentos Legais Essenciais</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 text-center text-118AB2">Pilar Normativo: Decreto nº 6.514/08, Art. 19, §3º</h3>
+                     <div class="pillar mx-auto max-w-sm">
+                        <span class="text-4xl">📜</span>
+                        <p class="mt-2 text-lg">Art. 19, §3º</p>
+                        <p class="text-sm mt-1">(Conforme interpretação da consulta)</p>
+                        <div class="pillar-base"></div>
+                    </div>
+                    <p class="mt-4 text-gray-700 leading-relaxed">
+                        Este dispositivo (conforme postulado na consulta) fundamentaria a exigência ou, no mínimo, a possibilidade de um <span class="text-highlight">estudo técnico comparativo</span> antes da decisão sobre demolição. A demolição, por ser drástica, exige cautela e fundamentação técnica robusta, justificando sua preponderância sobre alternativas. O ETAIC asseguraria uma decisão mais adequada, eficaz e proporcional.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 text-center text-118AB2">Princípios Constitucionais Violados</h3>
+                    <p class="mb-4 text-gray-700 leading-relaxed">A recusa na análise do ETAIC pode ferir princípios basilares do direito, comprometendo a justiça da decisão administrativa. A Administração deve pautar-se pela legalidade e razoabilidade.</p>
+                    <div class="chart-container h-72 sm:h-80 md:h-96 max-w-md">
+                        <canvas id="principiosChart"></canvas>
+                    </div>
+                     <p class="mt-4 text-sm text-gray-600 text-center">Visualização ilustrativa da relevância dos princípios no caso.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mandado-seguranca" class="mb-12">
+            <h2 class="section-title">3. O Mandado de Segurança em Foco</h2>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
+                <div class="md:col-span-2 card">
+                    <h3 class="text-xl font-semibold mb-4 text-center text-118AB2">Caminho do Mandado de Segurança</h3>
+                    <p class="mb-4 text-gray-700 leading-relaxed">O Mandado de Segurança (MS) é o remédio constitucional para proteger direito líquido e certo contra ato ilegal ou abusivo de autoridade pública. Busca-se compelir o órgão a analisar o ETAIC.</p>
+                    <div>
+                        <div class="flowchart-step">1. Ato Coator: Recusa Análise ETAIC</div>
+                        <div class="flowchart-arrow">▼</div>
+                        <div class="flowchart-step">2. Direito Líquido e Certo: Prova Técnica Essencial</div>
+                        <div class="flowchart-arrow">▼</div>
+                        <div class="flowchart-step">3. Petição Inicial MS: Fundamentação Robusta</div>
+                        <div class="flowchart-arrow">▼</div>
+                        <div class="flowchart-step">4. Pedido Liminar: Urgência (Ex: ANPP)</div>
+                        <div class="flowchart-arrow">▼</div>
+                        <div class="flowchart-step">5. Decisão Judicial: Garantia do Devido Processo</div>
+                    </div>
+                </div>
+                <div class="md:col-span-3 card">
+                    <h3 class="text-xl font-semibold mb-4 text-center text-118AB2">Componentes do Direito Líquido e Certo</h3>
+                    <p class="mb-4 text-gray-700 leading-relaxed">O direito líquido e certo à análise do ETAIC se baseia na necessidade de um processo justo, na aplicação da norma (Art. 19, §3º, conforme interpretação) e no direito fundamental à produção de prova técnica.</p>
+                    <div class="chart-container h-80 sm:h-96 md:h-[420px] max-w-full">
+                        <canvas id="direitoLiquidoCertoChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-600 text-center">Representação dos pilares que sustentam o direito do administrado.</p>
+                    <div class="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <h4 class="font-semibold text-red-700"><span class="text-2xl mr-2">⚠️</span>Urgência e Risco (Periculum in Mora)</h4>
+                        <p class="text-red-600 mt-2">Prazos exíguos (ex: Acordo de Não Persecução Penal - ANPP) e o risco de demolição irreversível antes da análise técnica completa justificam a <span class="font-bold">medida liminar</span> para suspender a exigência de demolição até a apreciação do ETAIC.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="jurisprudencia" class="mb-12">
+            <h2 class="section-title">4. Panorama Jurisprudencial (Por Analogia ou Princípio)</h2>
+            <div class="card">
+                 <p class="mb-6 text-lg text-gray-700 leading-relaxed text-center">
+                    Embora precedentes diretos sobre a recusa de análise de ETAIC com base específica no Art. 19, §3º do Decreto 6.514/08 possam ser escassos, a jurisprudência dos tribunais superiores (STF, STJ) e Regionais Federais (TRFs) oferece <span class="text-highlight">princípios e diretrizes cruciais</span> que sustentam a pretensão.
+                </p>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-300">
+                        <thead class="bg-118AB2 text-white">
+                            <tr>
+                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Tribunal/Referência</th>
+                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Tese Jurídica Principal / Ementa Resumida</th>
+                                <th class="py-3 px-4 uppercase font-semibold text-sm text-left">Relevância para Análise do ETAIC</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            <tr class="border-b">
+                                <td class="py-3 px-4">
+                                    STF
+                                    <p class="citation">Ex: MS 23.452, Rel. Min. Celso de Mello, DJ 12/05/2000 (Princípio Geral)</p>
+                                </td>
+                                <td class="py-3 px-4">O direito à prova é projeção do devido processo legal e da ampla defesa. A supressão do direito à prova por deliberação administrativa é lesiva à Constituição.</td>
+                                <td class="py-3 px-4">A recusa em analisar o ETAIC configura supressão do direito de produzir prova técnica relevante.</td>
+                            </tr>
+                            <tr class="border-b bg-sky-50">
+                                <td class="py-3 px-4">
+                                    STJ
+                                    <p class="citation">Ex: REsp 1.318.051/RJ, Rel. Min. Mauro Campbell Marques, DJe 12/06/2013 (Responsabilidade Administrativa)</p>
+                                </td>
+                                <td class="py-3 px-4">A responsabilidade administrativa ambiental é subjetiva, exigindo demonstração de dolo ou culpa. Sanções devem ser proporcionais e razoáveis.</td>
+                                <td class="py-3 px-4">Reforça a necessidade de análise individualizada e proporcional da sanção, para a qual o ETAIC (avaliando alternativas) é fundamental.</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-3 px-4">
+                                    TRF4
+                                     <p class="citation">Ex: AC 5003473-46.2018.4.04.7201/SC, Rel. Des. Fed. Roger Raupp Rios, j. 11/12/2019 (Motivação)</p>
+                                </td>
+                                <td class="py-3 px-4">Atos administrativos que impõem sanções ou restrições devem ser devidamente motivados, com explicitação dos fundamentos fáticos e jurídicos.</td>
+                                <td class="py-3 px-4">A recusa em analisar o ETAIC ou a imposição de demolição sem considerar alternativas técnicas exige motivação robusta, não genérica.</td>
+                            </tr>
+                            <tr class="bg-sky-50">
+                                 <td class="py-3 px-4">
+                                    TRF1
+                                    <p class="citation">Ex: AMS 0002630-70.2010.4.01.3800/MG, Rel. Des. Fed. Souza Prudente, j. 24/08/2016 (Proporcionalidade)</p>
+                                </td>
+                                <td class="py-3 px-4">A sanção de demolição é medida extrema, devendo ser aplicada com cautela e após análise de sua real necessidade e proporcionalidade frente a outras medidas reparatórias.</td>
+                                <td class="py-3 px-4">O ETAIC serve justamente para essa análise de proporcionalidade e necessidade, comparando a demolição com outras soluções.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="estrategia" class="mb-12">
+            <h2 class="section-title">5. Estratégia de Argumentação Chave no MS</h2>
+            <div class="card">
+                <p class="mb-6 text-lg text-gray-700 leading-relaxed text-center">
+                    A petição do Mandado de Segurança deve articular como a recusa em analisar o ETAIC configura ato ilegal e abusivo, violando direitos fundamentais e princípios administrativos. A <span class="text-highlight">postura colaborativa do administrado</span>, que busca reparar o dano e subsidiar a decisão com dados técnicos, deve ser valorizada.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="key-point-item">
+                        <h4 class="font-semibold text-lg text-073B4C mb-1">1. Violação do Direito à Prova</h4>
+                        <p>A recusa em analisar o ETAIC cerceia a defesa e o direito à prova (Art. 5º, LV, CF/88), essencial ao contraditório e à ampla defesa. <span class="citation">(Fundamento em STF, MS 23.452)</span></p>
+                    </div>
+                    <div class="key-point-item">
+                        <h4 class="font-semibold text-lg text-073B4C mb-1">2. Não Observância do Art. 19, §3º, Dec. 6.514/08</h4>
+                        <p>Este dispositivo (conforme interpretação) impõe o dever de considerar estudos técnicos comparativos antes da demolição.</p>
+                    </div>
+                    <div class="key-point-item">
+                        <h4 class="font-semibold text-lg text-073B4C mb-1">3. Ofensa à Proporcionalidade e Razoabilidade</h4>
+                        <p>Impor demolição sem ponderar alternativas (via ETAIC) pode resultar em sanção desproporcional e irrazoável. <span class="citation">(Princípio reforçado por STJ, REsp 1.318.051/RJ e TRF1, AMS 0002630-70.2010.4.01.3800/MG)</span></p>
+                    </div>
+                    <div class="key-point-item">
+                        <h4 class="font-semibold text-lg text-073B4C mb-1">4. Urgência Qualificada (ANPP)</h4>
+                        <p>Prazo exíguo em Acordo de Não Persecução Penal agrava o perigo da demora, justificando liminar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recomendacoes" class="mb-12">
+            <h2 class="section-title">6. Conclusão e Recomendações Estratégicas</h2>
+            <div class="card">
+                <p class="mb-6 text-lg text-gray-700 leading-relaxed">
+                    A impetração do Mandado de Segurança mostra-se juridicamente viável para assegurar o direito à análise técnica prévia (ETAIC). A argumentação deve ser robusta, focada nos direitos violados e na urgência da situação.
+                </p>
+                <div class="space-y-4">
+                    <div class="checklist-item">
+                        <span class="checklist-icon">📄</span>
+                        <div>
+                            <h4 class="font-semibold text-lg text-073B4C">Confirmar Texto Legal</h4>
+                            <p>Verificar o teor integral e atualizado do Art. 19, §3º, do Decreto nº 6.514/2008 para refinar a argumentação.</p>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <span class="checklist-icon">📂</span>
+                        <div>
+                            <h4 class="font-semibold text-lg text-073B4C">Documentação Completa</h4>
+                            <p>Juntar todas as provas: PRAD com ETAIC, recusa do órgão, auto de infração, ANPP com prazos.</p>
+                        </div>
+                    </div>
+                     <div class="checklist-item">
+                        <span class="checklist-icon">⚖️</span>
+                        <div>
+                            <h4 class="font-semibold text-lg text-073B4C">Foco na Liminar</h4>
+                            <p>Demonstrar claramente o *fumus boni iuris* e o *periculum in mora* (especialmente o prazo do ANPP e o risco de demolição iminente).</p>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <span class="checklist-icon">🎯</span>
+                        <div>
+                            <h4 class="font-semibold text-lg text-073B4C">Pedidos Claros e Objetivos</h4>
+                            <p>Requerer a análise do PRAD com o ETAIC como condicionante, ou a suspensão da exigência de demolição até a conclusão do estudo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-073B4C text-white text-center p-6 mt-12">
+        <p>&copy; <span id="currentYear"></span> Infográfico Jurídico. Conteúdo adaptado de relatório de pesquisa.</p>
+        <p class="text-sm mt-1">Este material tem caráter informativo e não substitui a consulta a um profissional do direito. As citações jurisprudenciais são exemplificativas e devem ser confirmadas e aprofundadas.</p>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        function wrapText(text, maxWidth) {
+            if (typeof text !== 'string') return text;
+            if (text.length <= maxWidth) return text;
+
+            const words = text.split(' ');
+            let lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + words[i].length + 1 <= maxWidth) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+        
+        const tooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            } else {
+              return label;
+            }
+        };
+
+        // Chart: Princípios Constitucionais Violados
+        const principiosCtx = document.getElementById('principiosChart').getContext('2d');
+        const principiosData = {
+            labels: [
+                wrapText('Devido Processo Legal', 16), 
+                wrapText('Contraditório e Ampla Defesa', 16), 
+                wrapText('Proporcionalidade', 16), 
+                wrapText('Razoabilidade', 16),
+                wrapText('Dever de Motivação dos Atos', 16)
+            ],
+            datasets: [{
+                label: 'Impacto nos Princípios',
+                data: [25, 25, 20, 15, 15], // Illustrative data
+                backgroundColor: [
+                    '#FF6B6B', // Red
+                    '#FFD166', // Yellow
+                    '#06D6A0', // Green
+                    '#118AB2', // Blue
+                    '#F78C6B'  // Orange variant
+                ],
+                borderColor: '#FFFFFF',
+                borderWidth: 2
+            }]
+        };
+        new Chart(principiosCtx, {
+            type: 'doughnut',
+            data: principiosData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                             font: { size: 11 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart: Componentes do Direito Líquido e Certo
+        const direitoLiquidoCertoCtx = document.getElementById('direitoLiquidoCertoChart').getContext('2d');
+        const direitoLiquidoCertoData = {
+            labels: [
+                wrapText('Processo Administrativo Regular e Justo', 16), 
+                wrapText('Aplicação Correta Art. 19 §3º Dec. 6.514/08', 16), 
+                wrapText('Direito à Produção de Prova Técnica (ETAIC)', 16)
+            ],
+            datasets: [{
+                label: 'Força do Argumento',
+                data: [70, 85, 90], // Illustrative data
+                backgroundColor: [
+                    '#06D6A0', // Green
+                    '#118AB2', // Blue
+                    '#FFD166'  // Yellow
+                ],
+                borderColor: [
+                    '#049F76',
+                    '#0B6987',
+                    '#E0A800'
+                ],
+                borderWidth: 1
+            }]
+        };
+        new Chart(direitoLiquidoCertoCtx, {
+            type: 'bar',
+            data: direitoLiquidoCertoData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100
+                    },
+                    y: {
+                       ticks: { font: { size: 11 } }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback,
+                             label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += context.parsed.x + '% (ilustrativo)';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
