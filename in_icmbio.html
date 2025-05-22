@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejador PRAD: Foco na Demolição</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Customizado para componentes, mantendo a estrutura visual original e paleta dark */
+        /* As cores slate-* e indigo-* referem-se à paleta padrão do Tailwind CSS */
+
+        .tab-button { 
+            padding: 0.75rem 1.25rem; /* py-3 px-5 */
+            margin-right: 0.5rem; /* mr-2 */
+            border-radius: 0.5rem 0.5rem 0 0; /* rounded-t-lg */
+            font-weight: 500; /* font-medium */
+            cursor: pointer; 
+            transition: background-color 0.3s, color 0.3s;
+            background-color: #1e293b; /* bg-slate-800 */
+            color: #94a3b8; /* text-slate-400 */
+            border: 1px solid #334155; /* border-slate-700 */
+            border-bottom: none;
+        }
+        .tab-button.active { 
+            background-color: #6366f1; /* bg-indigo-500 */
+            color: white; /* text-white */
+            border-color: #6366f1; /* border-indigo-500 */
+        }
+        .tab-button:hover:not(.active) { 
+            background-color: #334155; /* hover:bg-slate-700 */
+        }
+        .tab-content { 
+            display: none; 
+            padding: 1.5rem; /* p-6 */
+            background-color: #1e293b; /* bg-slate-800 */
+            border-radius: 0 0.5rem 0.5rem 0.5rem; /* rounded-b-lg rounded-tr-lg (seletivo) */
+            border: 1px solid #334155; /* border-slate-700 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.15); /* shadow-lg */
+        }
+        .tab-content.active { 
+            display: block; 
+        }
+
+        .accordion-item { 
+            border: 1px solid #334155; /* border-slate-700 */
+            border-radius: 0.375rem; /* rounded-md */
+            margin-bottom: 1rem; /* mb-4 */
+            background-color: #0f172a; /* bg-slate-900 */
+        }
+        .accordion-header { 
+            background-color: #334155; /* bg-slate-700 */
+            padding: 0.75rem 1rem; /* py-3 px-4 */
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: 600; /* font-semibold */
+            color: #e2e8f0; /* text-slate-200 */
+            border-radius: 0.375rem 0.375rem 0 0; /* rounded-t-md (se não expandido) */
+        }
+        .accordion-header.expanded { /* Mantém o canto arredondado superior, mas permite que o inferior conecte */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .accordion-header:hover { 
+            background-color: #475569; /* hover:bg-slate-600 */
+        }
+        .accordion-content { 
+            padding: 1rem; /* p-4 */
+            display: none; 
+            font-size: 0.95rem; /* Ajuste de tamanho de fonte se necessário */
+            line-height: 1.6; /* leading-relaxed */
+            border-top: 1px solid #334155; /* border-t border-slate-700 */
+            color: #cbd5e1; /* text-slate-300 */
+            border-radius: 0 0 0.375rem 0.375rem; /* rounded-b-md (quando o header não está expandido) */
+        }
+        .accordion-content.expanded { 
+            display: block; 
+        }
+        .accordion-arrow { 
+            transition: transform 0.2s ease-in-out; 
+            color: #818cf8; /* text-indigo-400 */
+            font-size: 1.25rem; /* text-xl */
+            font-weight: bold; /* font-bold */
+        }
+        .accordion-header.expanded .accordion-arrow { 
+            transform: rotate(90deg); 
+        }
+
+        .timeline-item { 
+            display: flex; 
+            align-items: flex-start; 
+            margin-bottom: 1.5rem; /* mb-6 */
+            padding-bottom: 1.5rem; /* pb-6 */
+            border-bottom: 1px dashed #475569; /* border-b border-dashed border-slate-600 */
+        }
+        .timeline-item:last-child { 
+            margin-bottom: 0; 
+            border-bottom: none; 
+        }
+        .timeline-step { 
+            flex-shrink: 0; 
+            width: 3rem; /* w-12 */
+            height: 3rem; /* h-12 */
+            border-radius: 50%; /* rounded-full */
+            background-color: #6366f1; /* bg-indigo-500 */
+            color: white; /* text-white */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: bold; /* font-bold */
+            font-size: 1.125rem; /* text-lg */
+            margin-right: 1.5rem; /* mr-6 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25); /* shadow-md */
+        }
+        .timeline-content h4 { 
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: #e2e8f0; /* text-slate-200 */
+            margin-bottom: 0.25rem; /* mb-1 */
+        }
+        .timeline-content p { 
+            font-size: 0.9rem; 
+            color: #94a3b8; /* text-slate-400 */
+            line-height: 1.5; /* leading-normal */
+        }
+        
+        .checklist-item { 
+            display: flex; 
+            align-items: center; 
+            padding: 0.75rem 0; /* py-3 */
+            border-bottom: 1px solid #334155; /* border-b border-slate-700 */
+        }
+        .checklist-item:last-child { 
+            border-bottom: none; 
+        }
+        .checklist-item input[type="checkbox"] { 
+            width: 1.25rem; /* w-5 */
+            height: 1.25rem; /* h-5 */
+            margin-right: 0.75rem; /* mr-3 */
+            accent-color: #6366f1; /* indigo-500 */
+            cursor: pointer; 
+            background-color: #334155; /* bg-slate-700 (para o fundo do quadrado antes do check) */
+            border: 1px solid #475569; /* border-slate-600 */
+            border-radius: 0.25rem; /* rounded */
+            /* Para melhor compatibilidade visual com Tailwind Forms, se fosse usado:
+               @apply w-5 h-5 mr-3 rounded cursor-pointer bg-slate-700 border-slate-600 text-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-800;
+            */
+        }
+        .checklist-item label { 
+            color: #cbd5e1; /* text-slate-300 */
+            flex-grow: 1; 
+            cursor: pointer; 
+        }
+        .checklist-item label.completed { 
+            text-decoration: line-through; 
+            color: #64748b; /* text-slate-500 */
+        }
+    </style>
+</head>
+<body class="font-inter bg-slate-900 text-slate-300">
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-400">Planejador PRAD: Foco na Demolição</h1>
+            <p class="text-slate-400 mt-2 text-lg">Guia para elaboração da etapa de demolição em Projetos de Recuperação de Áreas Degradadas.</p>
+        </header>
+
+        <div class="mb-8 text-left">
+            <a href="dashboard_prad.html" 
+               class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-5 rounded-md shadow-sm transition-colors duration-150">
+                &larr; Voltar ao Dashboard PRAD
+            </a>
+        </div>
+
+        <div class="mb-8 p-4 border-l-4 border-yellow-500 bg-yellow-700/30 text-yellow-200 rounded-r-md shadow-md">
+            <h3 class="font-bold text-lg text-yellow-400 mb-2">ADVERTÊNCIA</h3>
+            <p class="text-sm leading-relaxed">
+                O detalhamento a seguir foca exclusivamente na fase de demolição, que é condicionada à realização prévia de Estudo Técnico de Alternativas para Infraestrutura Controversa (ETAIC), conforme Art. 19, §3º do Decreto Federal nº 6.514/2008. Este decreto impõe a necessidade de uma análise técnica prévia e aprofundada antes que qualquer decisão sobre a demolição seja efetivada.
+            </p>
+        </div>
+
+        <div class="mb-6"> <nav class="flex flex-wrap">
+                <button class="tab-button active" data-tab="visaoGeral">Visão Geral</button>
+                <button class="tab-button" data-tab="conteudoPrad">Conteúdo do PRAD</button>
+                <button class="tab-button" data-tab="cronograma">Cronograma</button>
+                <button class="tab-button" data-tab="fundamentacao">Fundamentação Legal</button>
+                <button class="tab-button" data-tab="checklist">Checklist PRAD</button>
+            </nav>
+        </div>
+
+        <div id="visaoGeral" class="tab-content active">
+            <h2 class="text-2xl font-semibold text-indigo-400 mb-4">O PRAD e a Fase de Demolição</h2>
+            <p class="mb-4">O Projeto de Recuperação de Área Degradada (PRAD) é um estudo técnico fundamental que apresenta um conjunto de medidas e ações para mitigar, corrigir ou compensar os danos ambientais causados por atividades humanas. Ele visa restabelecer o equilíbrio ecológico da área afetada.</p>
+            <p class="mb-4">Quando a degradação envolve edificações ou benfeitorias irregulares que impedem a recuperação natural ou o uso adequado da área (especialmente em Unidades de Conservação), a <strong class="font-semibold text-indigo-300">fase de demolição</strong> torna-se uma etapa crítica e inicial do PRAD. Esta fase não se resume apenas à remoção física das estruturas, mas envolve um planejamento cuidadoso para garantir a segurança, o correto gerenciamento dos resíduos e a minimização de novos impactos ambientais.</p>
+            <p>Este planejador foca em detalhar os aspectos da demolição que devem ser contemplados no seu PRAD, ajudando a estruturar um plano de execução completo e em conformidade com as diretrizes ambientais, como as estabelecidas pela <strong class="font-semibold text-indigo-300">Instrução Normativa ICMBio Nº 11/2014</strong>.</p>
+        </div>
+
+        <div id="conteudoPrad" class="tab-content">
+            <h2 class="text-2xl font-semibold text-indigo-400 mb-6">Conteúdo Essencial do PRAD (Foco na Demolição)</h2>
+            <p class="mb-6 text-slate-400">Um PRAD que inclui uma fase de demolição deve detalhar minuciosamente todos os aspectos relacionados a essa intervenção. Abaixo estão os componentes chave que seu PRAD deve abordar, com ênfase no que é crucial para a etapa de demolição.</p>
+            <div id="accordionContainerPrad" class="space-y-3">
+                </div>
+        </div>
+
+        <div id="cronograma" class="tab-content">
+            <h2 class="text-2xl font-semibold text-indigo-400 mb-6">Cronograma Interativo da Fase de Demolição</h2>
+            <p class="mb-6 text-slate-400">Este cronograma apresenta uma sequência típica de atividades para a fase de demolição. Adapte os prazos e detalhes conforme a complexidade do seu projeto.</p>
+            <div id="timelineContainer" class="mt-6">
+                </div>
+        </div>
+        
+        <div id="fundamentacao" class="tab-content">
+            <h2 class="text-2xl font-semibold text-indigo-400 mb-6">Fundamentação Legal (IN ICMBio Nº 11/2014)</h2>
+            <p class="mb-6 text-slate-400">Esta seção detalha a fundamentação legal para cada etapa da fase de demolição, com base na Instrução Normativa ICMBio Nº 11 de 11 de dezembro de 2014. Compreender estas diretrizes é essencial para a elaboração de um PRAD em conformidade.</p>
+            <div id="accordionContainerFundamentacao" class="space-y-3">
+                </div>
+        </div>
+
+        <div id="checklist" class="tab-content">
+            <h2 class="text-2xl font-semibold text-indigo-400 mb-6">Checklist de Itens do PRAD (Fase de Demolição)</h2>
+            <p class="mb-6 text-slate-400">Utilize este checklist para verificar se todos os pontos cruciais relativos à fase de demolição foram considerados e detalhados no seu PRAD.</p>
+            <div id="checklistContainer" class="bg-slate-800 p-6 rounded-lg shadow-lg">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+        
+        function createAccordion(containerId, data) {
+            const accordionContainer = document.getElementById(containerId);
+            if (!accordionContainer) return;
+            accordionContainer.innerHTML = ''; 
+
+            data.forEach(item => {
+                const accItem = document.createElement('div');
+                accItem.className = 'accordion-item';
+
+                const accHeader = document.createElement('div');
+                accHeader.className = 'accordion-header';
+                
+                const titleSpan = document.createElement('span');
+                titleSpan.textContent = item.title;
+                accHeader.appendChild(titleSpan);
+                
+                const arrowSpan = document.createElement('span');
+                arrowSpan.className = 'accordion-arrow';
+                arrowSpan.innerHTML = '&#x276F;'; // Seta para a direita
+                accHeader.appendChild(arrowSpan);
+                
+                const accContent = document.createElement('div');
+                accContent.className = 'accordion-content';
+                
+                const ul = document.createElement('ul');
+                ul.className = 'list-disc list-inside space-y-2 text-slate-300'; // Garante cor de texto consistente
+                item.details.forEach(detailString => {
+                    const li = document.createElement('li');
+                    li.innerHTML = detailString; 
+                    ul.appendChild(li);
+                });
+                accContent.appendChild(ul);
+
+                accHeader.addEventListener('click', () => {
+                    const allHeadersInContainer = accordionContainer.querySelectorAll('.accordion-header');
+                    const allContentsInContainer = accordionContainer.querySelectorAll('.accordion-content');
+
+                    // Se o header clicado NÃO está expandido, fecha todos os outros e abre este.
+                    // Se ESTÁ expandido (ou seja, vai fechar), apenas fecha este.
+                    if (!accHeader.classList.contains('expanded')) {
+                        allHeadersInContainer.forEach(header => {
+                            if (header !== accHeader) header.classList.remove('expanded');
+                        });
+                        allContentsInContainer.forEach(content => {
+                             if (content !== accContent) content.classList.remove('expanded');
+                        });
+                    }
+                    
+                    accContent.classList.toggle('expanded');
+    				accHeader.classList.toggle('expanded');
+                });
+
+                accItem.appendChild(accHeader);
+                accItem.appendChild(accContent);
+                accordionContainer.appendChild(accItem);
+            });
+        }
+
+        // Dados para os acordeões (mantidos como no seu original)
+        const pradContentData = [
+            {
+                title: "1. Identificação Completa",
+                details: [
+                    "<strong class='text-indigo-300'>Do Proponente/Interessado:</strong> Nome/Razão Social, CPF/CNPJ, endereço, contato.",
+                    "<strong class='text-indigo-300'>Do Imóvel:</strong> Denominação, localização detalhada (município, coordenadas geográficas DATUM SIRGAS 2000), matrícula ou comprovante de posse/ocupação, croqui de acesso.",
+                    "<strong class='text-indigo-300'>Dos Responsáveis Técnicos:</strong> Pela elaboração do PRAD e pela execução da demolição (nomes, qualificações, registros profissionais, ARTs específicas)."
+                ]
+            },
+            {
+                title: "2. Caracterização da Área e das Estruturas",
+                details: [
+                    "<strong class='text-indigo-300'>Pré-Demolição:</strong> Descrição detalhada da(s) edificação(ões) e benfeitoria(s) a serem demolidas (tipo, dimensões, materiais construtivos, estado de conservação, fotografias datadas).",
+                    "<strong class='text-indigo-300'>Entorno:</strong> Caracterização do ambiente no entorno imediato das estruturas (tipo de vegetação, corpos d'água próximos, áreas sensíveis).",
+                    "<strong class='text-indigo-300'>Pós-Demolição (Esperado):</strong> Breve descrição de como a área deverá se apresentar após a remoção das estruturas e limpeza, antes do início da recuperação vegetal."
+                ]
+            },
+            {
+                title: "3. Diagnóstico Ambiental e Justificativa",
+                details: [
+                    "<strong class='text-indigo-300'>Impactos da Estrutura Existente:</strong> Descrever os passivos ambientais causados pela presença e uso da(s) estrutura(s) (ex: compactação do solo, impedimento de regeneração, geração de resíduos, contaminação).",
+                    "<strong class='text-indigo-300'>Justificativa para Demolição:</strong> Fundamentar a necessidade da demolição para a recuperação ambiental da área, em conformidade com a legislação e objetivos da Unidade de Conservação (se aplicável)."
+                ]
+            },
+            {
+                title: "4. Plano de Demolição Detalhado",
+                details: [
+                    "<strong class='text-indigo-300'>Objetivos Específicos da Demolição:</strong> O que se pretende alcançar com a remoção das estruturas.",
+                    "<strong class='text-indigo-300'>Licenças e Autorizações:</strong> Listagem das licenças necessárias e status (ex: aprovação do PRAD pelo ICMBio, alvará de demolição municipal, se aplicável).",
+                    "<strong class='text-indigo-300'>Planejamento e Preparação:</strong> Isolamento da área, sinalização, desligamento de utilidades (água, luz, esgoto), vistoria técnica de riscos.",
+                    "<strong class='text-indigo-300'>Esgotamento de Fossas/Sumidouros:</strong> Procedimento, empresa contratada (licenciada), destinação dos efluentes (licenciada), conforme <strong class='text-indigo-200'>Art. 21, II e §1º da IN ICMBio 11/2014</strong>.",
+                    "<strong class='text-indigo-300'>Métodos de Demolição:</strong> Manual, mecanizada ou mista. Justificativa da escolha. Equipamentos a serem utilizados.",
+                    "<strong class='text-indigo-300'>Sequência de Demolição:</strong> Ordem das atividades para garantir segurança e eficiência.",
+                    "<strong class='text-indigo-300'>Gerenciamento de Resíduos da Construção Civil (RCC) - Conforme Res. CONAMA 307/2002 e <strong class='text-indigo-200'>Art. 21, §2º e §3º da IN ICMBio 11/2014</strong>:</strong>",
+                    "&nbsp;&nbsp;&nbsp;&nbsp;<em class='text-slate-400'>Classificação dos Resíduos:</em> Identificação (Classe A, B, C, D).",
+                    "&nbsp;&nbsp;&nbsp;&nbsp;<em class='text-slate-400'>Segregação e Acondicionamento na Fonte:</em> Como será feito.",
+                    "&nbsp;&nbsp;&nbsp;&nbsp;<em class='text-slate-400'>Transporte:</em> Empresa/transportador licenciado, MTR (se aplicável), veículos adequados.",
+                    "&nbsp;&nbsp;&nbsp;&nbsp;<em class='text-slate-400'>Destinação Final:</em> Locais licenciados para cada classe de resíduo. Comprovantes (CDFs). Proibição de descarte irregular.",
+                    "<strong class='text-indigo-300'>Medidas de Controle Ambiental Durante a Demolição:</strong> Controle de poeira (umectação), ruído, prevenção de contaminação do solo/água.",
+                    "<strong class='text-indigo-300'>Medidas de Segurança do Trabalho:</strong> EPIs, EPCs, treinamento, kit de primeiros socorros."
+                ]
+            },
+            {
+                title: "5. Proposta de Recuperação da Área Pós-Demolição",
+                details: [
+                    "Embora o foco aqui seja a demolição, o PRAD deve indicar as ações subsequentes para a recuperação da área que ficará livre das estruturas (ex: limpeza final, preparo do solo, plantio, condução da regeneração natural). Detalhar conforme o escopo completo do PRAD, conforme <strong class='text-indigo-200'>Art. 21, §4º da IN ICMBio 11/2014</strong>."
+                ]
+            },
+            {
+                title: "6. Cronograma Detalhado",
+                details: [
+                    "<strong class='text-indigo-300'>Fase de Demolição:</strong> Duração estimada para cada sub-etapa.",
+                    "<strong class='text-indigo-300'>Fases Subsequentes do PRAD:</strong> Cronograma para recuperação, monitoramento, etc."
+                ]
+            },
+            {
+                title: "7. Estimativa de Custos",
+                details: [
+                    "<strong class='text-indigo-300'>Custos da Fase de Demolição:</strong> Planilha detalhada.",
+                    "<strong class='text-indigo-300'>Custos Totais do PRAD.</strong>"
+                ]
+            },
+            {
+                title: "8. Monitoramento e Relatórios",
+                details: [
+                    "<strong class='text-indigo-300'>Monitoramento da Demolição:</strong> Acompanhamento da execução.",
+                    "<strong class='text-indigo-300'>Relatórios:</strong> Execução da demolição (fotos, MTRs, CDFs), e relatórios de monitoramento do PRAD (<strong class='text-indigo-200'>Anexo III da IN ICMBio 11/2014</strong>)."
+                ]
+            }
+        ];
+        createAccordion('accordionContainerPrad', pradContentData);
+
+        const timelineData = [
+            { step: "1", title: "Planejamento e Licenciamento", description: "Elaboração/Aprovação do PRAD, obtenção de alvarás, contratações, mobilização inicial." },
+            { step: "2", title: "Isolamento e Preparação da Área", description: "Sinalização, instalação de tapumes, desligamento de utilidades, montagem de canteiro de apoio." },
+            { step: "3", title: "Esgotamento de Fossas/Sumidouros", description: "Contratação de empresa licenciada, coleta e transporte seguro dos efluentes para destinação adequada." },
+            { step: "4", title: "Demolição das Estruturas", description: "Execução da demolição conforme método definido (manual/mecanizada), seguindo a sequência planejada." },
+            { step: "5", title: "Segregação e Acondicionamento de RCC", description: "Separação dos resíduos na fonte (Classes A, B, C, D) e acondicionamento em áreas designadas." },
+            { step: "6", title: "Transporte e Destinação dos RCC", description: "Remoção dos resíduos por transportador licenciado para locais de destinação final apropriados e licenciados." },
+            { step: "7", title: "Limpeza Final da Área Demolida", description: "Remoção de pequenos entulhos, varrição, nivelamento básico do terreno, se necessário." },
+            { step: "8", title: "Desmobilização", description: "Retirada de equipamentos, ferramentas e estruturas de apoio do canteiro." }
+        ];
+
+        const timelineContainer = document.getElementById('timelineContainer');
+        if (timelineContainer) {
+            timelineContainer.innerHTML = ''; 
+            timelineData.forEach(item => {
+                const tlItem = document.createElement('div');
+                tlItem.className = 'timeline-item';
+                tlItem.innerHTML = `
+                    <div class="timeline-step">${item.step}</div>
+                    <div class="timeline-content">
+                        <h4>${item.title}</h4>
+                        <p>${item.description}</p>
+                    </div>
+                `;
+                timelineContainer.appendChild(tlItem);
+            });
+        }
+        
+        const fundamentacaoData = [
+             {
+                title: "Fase 1: Planejamento e Licenciamento da Demolição",
+                details: [
+                    "<strong class='text-indigo-300'>Detalhamento no PRAD:</strong> Conforme o <strong class='text-indigo-200'>Art. 22 da IN ICMBio 11/2014</strong>, 'As medidas necessárias à demolição de edificações e outras benfeitorias, bem como a destinação que será dada aos resíduos, deverão ser detalhadas no PRAD ou no PRAD simplificado apresentado.' Isso implica que todo o planejamento, incluindo a necessidade de licenças específicas (além da aprovação do próprio PRAD), deve ser explicitado.",
+                    "<strong class='text-indigo-300'>Elaboração do PRAD:</strong> O <strong class='text-indigo-200'>Art. 3º</strong> estabelece que o PRAD deve definir as medidas necessárias, fundamentado nas características da área e do impacto. O <strong class='text-indigo-200'>Art. 4º</strong> exige a proposição de métodos e técnicas adequadas.",
+                    "<strong class='text-indigo-300'>Documentação:</strong> O <strong class='text-indigo-200'>Art. 5º</strong> lista os documentos que acompanham o PRAD, incluindo ART do(s) técnico(s) responsável(is) pela elaboração e execução."
+                ]
+            },
+            {
+                title: "Fase 2: Isolamento e Preparação da Área",
+                details: [
+                    "<strong class='text-indigo-300'>Segurança e Proteção:</strong> Embora a IN não detalhe especificamente o isolamento para demolição, o <strong class='text-indigo-200'>Art. 4º</strong>, ao tratar dos métodos do PRAD, menciona 'medidas que assegurem a proteção das áreas degradadas ou perturbadas de quaisquer fatores que possam dificultar ou impedir o processo de recuperação/restauração'. Medidas de segurança e isolamento são intrínsecas a qualquer intervenção que vise a recuperação e evite novos danos ou riscos."
+                ]
+            },
+            {
+                title: "Fase 3: Esgotamento de Fossas/Sumidouros",
+                details: [
+                    "<strong class='text-indigo-300'>Obrigatoriedade:</strong> O <strong class='text-indigo-200'>Art. 21, inciso II</strong>, é direto: 'identificar e esgotar fossas sépticas e/ou sumidouros'.",
+                    "<strong class='text-indigo-300'>Destinação Correta dos Rejeitos:</strong> O <strong class='text-indigo-200'>Art. 21, § 1º</strong>, complementa: 'Os rejeitos das fossas sépticas e/ou sumidouros deverão ter o transporte e a destinação final realizados por empresa e em estação de tratamento devidamente licenciados.' Isso reforça a necessidade de contratar serviços especializados e licenciados."
+                ]
+            },
+            {
+                title: "Fase 4: Demolição das Estruturas",
+                details: [
+                    "<strong class='text-indigo-300'>Ação Principal:</strong> O <strong class='text-indigo-200'>Art. 21, inciso I</strong>, estabelece como medida necessária 'promover a demolição da edificação e demais benfeitorias'.",
+                    "<strong class='text-indigo-300'>Detalhamento no PRAD:</strong> Reitera-se o <strong class='text-indigo-200'>Art. 22</strong>, que exige que as 'medidas necessárias à demolição' sejam detalhadas no PRAD. Isso inclui os métodos, equipamentos e a sequência operacional."
+                ]
+            },
+            {
+                title: "Fase 5 e 6: Gerenciamento de Resíduos da Construção Civil (RCC)",
+                details: [
+                    "<strong class='text-indigo-300'>Identificação e Classificação:</strong> O <strong class='text-indigo-200'>Art. 21, § 2º</strong>, é claro: 'O resíduo de construção civil deverá ser identificado conforme classificação da Resolução CONAMA nº 307, de 05 de julho de 2002...'. Esta resolução estabelece as classes A, B, C e D, orientando a segregação.",
+                    "<strong class='text-indigo-300'>Destinação Conforme Classe:</strong> O mesmo <strong class='text-indigo-200'>Art. 21, § 2º</strong>, continua: '...e sua destinação deverá se dar conforme estabelecido para cada classe.'",
+                    "<strong class='text-indigo-300'>Proibições de Descarte:</strong> O <strong class='text-indigo-200'>Art. 21, § 3º</strong>, é taxativo sobre onde os RCC NÃO podem ser dispostos: 'Os resíduos da construção civil não poderão ser dispostos definitivamente no local objeto da demolição, bem como em aterros de resíduos domiciliares, em áreas de \"bota fora\", em encostas, corpos d'água, praias, em remanescentes da mata atlântica, lotes vagos e em áreas protegidas por lei.' Isso implica a necessidade de transporte para locais licenciados."
+                ]
+            },
+            {
+                title: "Fase 7: Limpeza Final da Área Demolida",
+                details: [
+                    "<strong class='text-indigo-300'>Preparação para Recuperação:</strong> O <strong class='text-indigo-200'>Art. 21, § 4º</strong>, estabelece que 'Após a demolição das edificações e benfeitorias, a recuperação/ restauração da área deverá ser realizada conforme os termos da presente Instrução Normativa.' A limpeza completa da área de todos os resíduos da demolição é um passo implícito e essencial para que a recuperação subsequente possa ocorrer de forma eficaz."
+                ]
+            },
+            {
+                title: "Fase 8: Desmobilização",
+                details: [
+                    "<strong class='text-indigo-300'>Conclusão da Etapa:</strong> A IN não detalha a desmobilização especificamente para a demolição. No entanto, é uma prática padrão de gerenciamento de projetos e obras, que consiste na retirada de todos os equipamentos, ferramentas e estruturas temporárias do canteiro após a conclusão dos trabalhos, deixando a área pronta para as próximas fases do PRAD."
+                ]
+            }
+        ];
+        createAccordion('accordionContainerFundamentacao', fundamentacaoData);
+
+        const checklistData = [
+            { id: "chk1", text: "Identificação completa do proponente, imóvel e RTs (com ARTs)." },
+            { id: "chk2", text: "Caracterização detalhada da área e das estruturas a serem demolidas (com fotos)." },
+            { id: "chk3", text: "Diagnóstico ambiental dos impactos da estrutura e justificativa para demolição." },
+            { id: "chk4", text: "Plano de Demolição: Licenças e autorizações listadas." },
+            { id: "chk5", text: "Plano de Demolição: Procedimentos de planejamento e preparação da área." },
+            { id: "chk6", text: "Plano de Demolição: Detalhamento do esgotamento de fossas/sumidouros (empresa, destinação) - Conforme Art. 21, II e §1º da IN." },
+            { id: "chk7", text: "Plano de Demolição: Métodos e sequência de demolição definidos e justificados - Conforme Art. 22 da IN." },
+            { id: "chk8", text: "Plano de Demolição: Gerenciamento de RCC (classificação Res. CONAMA 307/02, segregação, acondicionamento) - Conforme Art. 21, §2º da IN." },
+            { id: "chk9", text: "Plano de Demolição: Transporte de RCC (transportador licenciado, MTR)." },
+            { id: "chk10", text: "Plano de Demolição: Destinação final de RCC (locais licenciados, CDFs, proibições do Art. 21, §3º da IN observadas)." },
+            { id: "chk11", text: "Plano de Demolição: Medidas de controle ambiental (poeira, ruído, contaminação)." },
+            { id: "chk12", text: "Plano de Demolição: Medidas de segurança do trabalho (EPIs, EPCs)." },
+            { id: "chk13", text: "Proposta de recuperação da área pós-demolição (Art. 21, §4º da IN)." },
+            { id: "chk14", text: "Cronograma detalhado para a fase de demolição." },
+            { id: "chk15", text: "Estimativa de custos detalhada para a fase de demolição." },
+            { id: "chk16", text: "Plano de monitoramento da execução da demolição e previsão de relatórios (conforme Anexo III da IN, se aplicável)." }
+        ];
+
+        const checklistContainer = document.getElementById('checklistContainer');
+        if(checklistContainer) {
+            checklistContainer.innerHTML = '';
+            checklistData.forEach(item => {
+                const chkItem = document.createElement('div');
+                chkItem.className = 'checklist-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = item.id;
+                checkbox.name = item.id;
+                checkbox.className = 'checklist-item input[type="checkbox"]'; // Usa a classe definida no <style>
+
+                const label = document.createElement('label');
+                label.htmlFor = item.id;
+                label.textContent = item.text;
+                // A classe 'completed' será adicionada/removida via JS
+
+                checkbox.addEventListener('change', () => {
+                    label.classList.toggle('completed', checkbox.checked);
+                });
+                
+                chkItem.appendChild(checkbox);
+                chkItem.appendChild(label);
+                checklistContainer.appendChild(chkItem);
+            });
+        }
+    </script>
+</body>
+</html>
